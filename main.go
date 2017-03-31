@@ -18,10 +18,10 @@ func main() {
 func hello(ctx *context.Context) {
 	//配置微信参数
 	config := &wechat.Config{
-		AppID:
-		AppSecret:      
-		Token:
-		EncodingAESKey:
+		AppID: beego.AppConfig.String("AppID"),
+		AppSecret: beego.AppConfig.String("AppSecret"),
+		Token: beego.AppConfig.String("Token"),
+		EncodingAESKey: beego.AppConfig.String("EncodingAESKey"),
 	}
 	wc := wechat.NewWechat(config)
 
