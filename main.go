@@ -7,7 +7,8 @@ import (
 	"github.com/astaxie/beego/context"
 	"github.com/silenceper/wechat"
 	"github.com/silenceper/wechat/message"
-
+	"gowechatsubscribe/dblite"
+	"github.com/going/toolkit/log"
 )
 
 func main() {
@@ -34,8 +35,11 @@ func hello(ctx *context.Context) {
 		// 文本消息
 		case message.MsgTypeText:
 			//回复消息：演示回复用户发送的消息
-			//text := message.NewText(msg.Content)
-			return &message.Reply{message.MsgTypeText, "王照文你好"}
+			text := message.NewText(msg.Content)
+			dbManager := dblite.NewDBManager()
+			result := dbManager.SelectPoetry(text.Content)
+			log.Debug("text", text)
+			return &message.Reply{message.MsgTypeText, "王照文你好\n" + result}
 		}
 
 	})
