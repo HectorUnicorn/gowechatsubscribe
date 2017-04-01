@@ -30,9 +30,14 @@ func hello(ctx *context.Context) {
 	//设置接收消息的处理方法
 	server.SetMessageHandler(func(msg message.MixMessage) *message.Reply {
 
-		//回复消息：演示回复用户发送的消息
-		text := message.NewText(msg.Content)
-		return &message.Reply{message.MsgTypeText, text}
+		switch msg.MsgType {
+		// 文本消息
+		case message.MsgTypeText:
+			//回复消息：演示回复用户发送的消息
+			//text := message.NewText(msg.Content)
+			return &message.Reply{message.MsgTypeText, "王照文你好"}
+		}
+
 	})
 
 	//处理消息接收以及回复
