@@ -63,18 +63,17 @@ func (manager *DBManager) CreateTableIfNeeded() bool {
 	database := beego.AppConfig.String("dbdatabase")
 
 	var err error
-	login := fmt.Sprintf("%s:%s@/%s", username, password, database)
+	login := fmt.Sprintf("%s:%s@%s", username, password, database)
 	fmt.Println("login command:", login)
 	manager.db, err = sql.Open("mysql", login)
 	if err != nil {
 		panic(err.Error())  // Just for example purpose. You should use proper error handling instead of panic
 	}
-	defer manager.db.Close()
-	_, err = manager.db.Exec(sqlStmt)
-	if err != nil {
-		log.Printf("%q: %s\n", err, sqlStmt)
-		return false
-	}
+//	_, err = manager.db.Exec(sqlStmt)
+//	if err != nil {
+//		log.Printf("%q: %s\n", err, sqlStmt)
+//		return false
+//	}
 	return true
 }
 

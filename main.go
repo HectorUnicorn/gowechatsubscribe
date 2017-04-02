@@ -8,7 +8,6 @@ import (
 	"github.com/silenceper/wechat"
 	"github.com/silenceper/wechat/message"
 	"gowechatsubscribe/dblite"
-	"github.com/going/toolkit/log"
 )
 
 func main() {
@@ -38,7 +37,7 @@ func hello(ctx *context.Context) {
 			text := message.NewText(msg.Content)
 			dbManager := dblite.NewDBManager()
 			result := dbManager.SelectPoetry(text.Content)
-			log.Debug("text", text.Content)
+			fmt.Println("input:", text.Content)
 			return &message.Reply{message.MsgTypeText, "王照文你好\n" + result}
 		}
 
