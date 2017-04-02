@@ -38,7 +38,7 @@ func hello(ctx *context.Context) {
 			dbManager := dblite.NewDBManager()
 			result := dbManager.SelectPoetry(text.Content)
 			fmt.Println("input:", text.Content)
-			reply := message.NewText("王照文你好\n" + result)
+			reply := message.NewText(result)
 			return &message.Reply{message.MsgTypeText, reply}
 		}
 
