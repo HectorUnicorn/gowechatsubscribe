@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"github.com/astaxie/beego"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 const (
