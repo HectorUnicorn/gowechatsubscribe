@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"github.com/astaxie/beego"
 )
 
 const (
@@ -56,8 +57,14 @@ func NewDBManager() *DBManager {
 }
 
 func (manager *DBManager) CreateTableIfNeeded() bool {
+	username := beego.AppConfig.String("dbusername")
+	password := beego.AppConfig.String("dbpassword")
+	database := beego.AppConfig.String("dbdatabase")
+
 	var err error
-	manager.db, err = sql.Open("sqlite3", "./poetry.db")
+	login := fmt.Sprintf("%s:%s@/%s", username, password, database)
+	fmt.Println("login command:", login)
+	manager.db, err = sql.Open("mysql", login)
 	if err != nil {
 		panic(err.Error())  // Just for example purpose. You should use proper error handling instead of panic
 	}

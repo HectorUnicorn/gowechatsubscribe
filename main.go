@@ -38,10 +38,11 @@ func hello(ctx *context.Context) {
 			text := message.NewText(msg.Content)
 			dbManager := dblite.NewDBManager()
 			result := dbManager.SelectPoetry(text.Content)
-			log.Debug("text", text)
+			log.Debug("text", text.Content)
 			return &message.Reply{message.MsgTypeText, "王照文你好\n" + result}
 		}
 
+		return &message.Reply{message.MsgTypeText, "王照文你好\n"}
 	})
 
 	//处理消息接收以及回复
