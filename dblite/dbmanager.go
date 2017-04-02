@@ -94,7 +94,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 			log.Fatal(err)
 		}
 		fmt.Println(title, author)
-		return title + "  " + content
+		return title + "  " + content + " " + author
 	}
 
 	err = rows.Err()
