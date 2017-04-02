@@ -101,7 +101,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return nil
+	return "很抱歉，还没有这首诗哦~"
 }
 
 
