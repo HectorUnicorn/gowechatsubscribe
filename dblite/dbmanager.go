@@ -80,10 +80,10 @@ func (manager *DBManager) CreateTableIfNeeded() bool {
 
 func (manager *DBManager) SelectPoetry(keyword string) string {
 
-	rows, err := manager.db.Query("select poetry.title, poetry.author, poetry.content" +
+	rows, err := manager.db.Query("select poetry.title, poetry.author, poetry.content " +
 		"from poetry " +
-		"left join poet on poetry.poetuid = poet.uid" +
-		"where poetry.title = " + "'《" + keyword + "》' " +
+		"left join poet on poetry.poetuid = poet.uid " +
+		"where poetry.title = " + "'《" + keyword + "》'  " +
 		"order by poet.poet_count desc")
 	if err != nil {
 		log.Fatal(err)
@@ -109,7 +109,9 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 
 	// not found exactly.
 	if len(keyword) >= 2 {
-		row, err := manager.db.Query("select title, author, content from poetry where title like " + "'%" + keyword + "%'", 1);
+                query : = fmt.Sprintf("select title, author, content from poetry where title like " + "'%%s%'", keyword)
+		fmt.Println("query:", query)
+		row, err := manager.db.Query(query);
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -118,7 +120,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 		var content string
 		err = row.Scan(&title, &author, &content)
 		fmt.Println(title, author)
-		return title + "\n 诗人：" + author + "\n" +  content
+		return title + "\n 诗人：" + author + "\n" +  cont
 	}
 
 	return "很抱歉，还没有这首诗哦~"
