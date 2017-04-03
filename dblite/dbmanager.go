@@ -109,7 +109,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 
 	// not found exactly.
 	if len(keyword) >= 2 {
-                query := fmt.Sprintf("select title, author, content from poetry where title like " + "'%%s%'", keyword)
+                query := "select title, author, content from poetry where title like " + "'%"+ keyword +"%'"
 		fmt.Println("query:", query)
 		row, err := manager.db.Query(query);
 		if err != nil {
