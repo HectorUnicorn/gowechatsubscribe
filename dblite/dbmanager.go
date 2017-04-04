@@ -110,8 +110,10 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 		log.Println(err)
 	}
 
-	// not found exactly fuzzy match the title.
+
 	if len(keyword) >= 2 {
+
+		// not found exactly fuzzy match the title.
 		query := "SELECT poetry.title, poetry.author, poetry.content, poetry.poetuid " +
 			"FROM poetry " +
 			"LEFT JOIN poet ON poetry.poetuid = poet.uid " +
@@ -127,22 +129,22 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 			return manager.packFiledsAsString(title, author,content, poetUid)
 		}
 
-	}
-
-	// title not found, fuzzy match the poetry content
-	if len(keyword) >= 2 {
-		query := "SELECT poetry.title, poetry.author, poetry.content, poetry.poetuid " +
+		// title not found, fuzzy match the poetry content
+		query = "SELECT poetry.title, poetry.author, poetry.content, poetry.poetuid " +
 			"FROM poetry " +
 			"LEFT JOIN poet ON poetry.poetuid = poet.uid " +
 			"WHERE poetry.content LIKE " + "'%" + keyword + "%' " +
 			"ORDER BY poet.uid ASC, poet.poet_count DESC"
 		fmt.Println("query:", query)
-		err := manager.db.QueryRow(query).Scan(&title, &author, &content, &poetUid);
+		err = manager.db.QueryRow(query).Scan(&title, &author, &content, &poetUid);
 		if err != nil {
 			log.Println(err)
 		}
 		fmt.Println("fuzzy content:", title, content)
 		return manager.packFiledsAsString(title, author, content, poetUid)
+
+	} else {
+		return "您输入的诗词名称太短哦~"
 	}
 
 	return "很抱歉，还没有这首诗哦~"

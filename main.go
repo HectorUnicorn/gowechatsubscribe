@@ -41,8 +41,7 @@ func hello(ctx *context.Context) {
 			reply := message.NewText(result)
 			return &message.Reply{message.MsgTypeText, reply}
 		}
-
-		return &message.Reply{message.MsgTypeText, "王照文你好\n"}
+		return &message.Reply{message.MsgTypeText, "没有找到哦，亲~\n"}
 	})
 
 	//处理消息接收以及回复
