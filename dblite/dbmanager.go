@@ -141,7 +141,9 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 			log.Println(err)
 		}
 		fmt.Println("fuzzy content:", title, content)
-		return manager.packFiledsAsString(title, author, content, poetUid)
+		if len(title) > 0 {
+			return manager.packFiledsAsString(title, author, content, poetUid)
+		}
 
 	} else {
 		return "您输入的诗词名称太短哦~"

@@ -36,8 +36,13 @@ func hello(ctx *context.Context) {
 			//回复消息：演示回复用户发送的消息
 			text := message.NewText(msg.Content)
 			dbManager := dblite.NewDBManager()
-			result := dbManager.SelectPoetry(text.Content)
+			var result string
 			fmt.Println("input:", text.Content)
+			if (len(text.Content) < 2) {
+				result = "请输入两个字以上哦！"
+			} else {
+				result = dbManager.SelectPoetry(text.Content)
+			}
 			reply := message.NewText(result)
 			return &message.Reply{message.MsgTypeText, reply}
 		}
