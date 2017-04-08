@@ -8,12 +8,15 @@ import (
 	"github.com/silenceper/wechat"
 	"github.com/silenceper/wechat/message"
 	"gowechatsubscribe/dblite"
+	"github.com/going/toolkit/log"
 )
 
 func main() {
 	beego.Any("/", hello)
 	beego.Run()
 }
+
+var accessToken string
 
 func hello(ctx *context.Context) {
 	//配置微信参数
@@ -30,6 +33,8 @@ func hello(ctx *context.Context) {
 	//设置接收消息的处理方法
 	server.SetMessageHandler(func(msg message.MixMessage) *message.Reply {
 
+		//openId := server.GetOpenID()
+
 		switch msg.MsgType {
 		// 文本消息
 		case message.MsgTypeText:
@@ -45,6 +50,10 @@ func hello(ctx *context.Context) {
 			}
 			reply := message.NewText(result)
 			return &message.Reply{message.MsgTypeText, reply}
+		case message.MsgTypeEvent:
+
+			reply := message.NewText("Hi 亲爱的国学爱好者，" + "谢谢你的关注！我是您的较为智能的国学小助手。尝试回复诗句或者词牌名，看看都有什么吧！" )
+			return &message.Reply{message.MsgTypeText, reply}
 		}
 		return &message.Reply{message.MsgTypeText, "没有找到哦，亲~\n"}
 	})
@@ -55,6 +64,13 @@ func hello(ctx *context.Context) {
 		fmt.Println(err)
 		return
 	}
+
+	accessToken, err = server.GetAccessToken()
+
+	if err != nil {
+		log.Warn(err)
+	}
+
 	//发送回复的消息
 	server.Send()
 }
