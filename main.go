@@ -16,7 +16,6 @@ func main() {
 	beego.Run()
 }
 
-var accessToken string
 
 func hello(ctx *context.Context) {
 	//配置微信参数
@@ -52,8 +51,8 @@ func hello(ctx *context.Context) {
 			return &message.Reply{message.MsgTypeText, reply}
 		case message.MsgTypeEvent:
 
-			text := message.NewText("Hi 主人，" + "谢谢您的关注！我是您的较为智能的国学小助手。尝试回复诗句或者词牌名，如：\"静夜思\", 看看都有什么吧！" )
-			return &message.Reply{message.MsgTypeText, text}
+			aReply := message.NewText("Hi 主人，" + "谢谢您的关注！我是您的较为智能的国学小助手。尝试回复诗句或者词牌名，如：\"静夜思\", 看看都有什么吧！" )
+			return &message.Reply{message.MsgTypeText, aReply}
 		}
 		return &message.Reply{message.MsgTypeText, "没有找到哦，亲~\n"}
 	})
@@ -64,8 +63,6 @@ func hello(ctx *context.Context) {
 		fmt.Println(err)
 		return
 	}
-
-	accessToken, err = server.GetAccessToken()
 
 	if err != nil {
 		log.Warn(err)
