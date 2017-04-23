@@ -9,10 +9,19 @@ import (
 	"github.com/silenceper/wechat/message"
 	"gowechatsubscribe/dblite"
 	"github.com/going/toolkit/log"
+	"gowechatsubscribe/controllers"
+	"gowechatsubscribe/models"
 )
+
+func init() {
+	models.RegisterDB()
+}
 
 func main() {
 	beego.Any("/", hello)
+	beego.Router("/mis", &controllers.HomeController{})
+	beego.Router("/mis/login", &controllers.LoginController{})
+	beego.Router("/mis/search", &controllers.SearchController{})
 	beego.Run()
 }
 

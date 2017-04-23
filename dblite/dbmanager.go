@@ -3,11 +3,11 @@ package dblite
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	_ "github.com/go-sql-driver/mysql"
 	"strings"
 	"regexp"
 	"github.com/astaxie/beego"
+	"github.com/going/toolkit/log"
 )
 
 const (
@@ -87,7 +87,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 		"WHERE poetry.title = " + "'《" + keyword + "》'  " +
 		"ORDER BY poet.poet_count desc")
 	if err != nil {
-		log.Fatal(err)
+		log.Warn(err)
 	}
 	defer rows.Close()
 
@@ -99,7 +99,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 	for rows.Next() {
 		err = rows.Scan(&title, &author, &content, &poetUid)
 		if err != nil {
-			log.Println(err)
+			log.Warn(err)
 		}
 		fmt.Println(title, author)
 		return manager.packFiledsAsString(title, author,content, poetUid)
@@ -107,7 +107,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 
 	err = rows.Err()
 	if err != nil {
-		log.Println(err)
+		log.Warn(err)
 	}
 
 
@@ -122,7 +122,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 		fmt.Println("query:", query)
 		err := manager.db.QueryRow(query).Scan(&title, &author, &content, &poetUid);
 		if err != nil {
-			log.Println(err)
+			log.Warn(err)
 		}
 		fmt.Println("fuzzy title:", title, author)
 		if len(title) > 0 {
@@ -138,7 +138,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 		fmt.Println("query:", query)
 		err = manager.db.QueryRow(query).Scan(&title, &author, &content, &poetUid);
 		if err != nil {
-			log.Println(err)
+			log.Warn(err)
 		}
 		fmt.Println("fuzzy content:", title, content)
 		if len(title) > 0 {
@@ -180,7 +180,6 @@ func (manager *DBManager)packFiledsAsString(title, author, content, poetUid stri
 			}
 		}
 		fmt.Println("reg3:",match)
-
 	}
 	return title + "\n" + manager.SelectDynasty(strings.Split(poetUid, "_")[0]) + " · " + author + "\n" + content
 }
@@ -194,7 +193,7 @@ func (manager *DBManager) SelectDynasty(id string) string {
 	fmt.Println("query:", query)
 	err := manager.db.QueryRow(query).Scan(&name);
 	if err != nil {
-		log.Println(err)
+		log.Warn(err)
 	}
 	return name
 
