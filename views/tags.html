@@ -1,0 +1,66 @@
+{{template "header"}}
+<title>分类</title>
+</head>
+
+<body>
+<div class="navbar navbar-default">
+    <div class="container">
+        {{template "navbar" .}}
+    </div>
+</div>
+<div class="container">
+    <form method="POST" action="/mis/tag" class="navbar-form navbar-left">
+        <div class="form-group">
+            <input class="form-control" id="tag" placeholder="Tag" name="tag"/>
+            <input class="form-control" id="tag_category" placeholder="Tag分类" name="tag_category"/>
+            <button type="submit" class="btn btn-primary" onclick="return checkInput();">添加</button>
+        </div>
+    </form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>标签名称</th>
+            <th>标签分类</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .Tags}}
+        <tr>
+            <td>{{.Id}}</td>
+            <td>{{.Tag}}</td>
+            <td>{{.TagCategory}}</td>
+            <td>
+                <a href="/mis/tag?op=del&id={{.Id}}">删除</a>
+            </td>
+        </tr>
+        {{end}}
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    function checkInput() {
+        var tag = document.getElementById("tag")
+        var tagcat = document.getElementById("tag_category")
+        if (tag.value.length == 0) {
+            alert("请输入标签名称，如：[捂脸]");
+            return false;
+        }
+        if (tagcat.value.length == 0) {
+            alert("请输入标签分类，如：表情");
+            return false;
+        }
+        return
+    }
+
+    function backToHome() {
+        window.location.href = "/";
+        return false;
+    }
+</script>
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+</body>
+
+</html>

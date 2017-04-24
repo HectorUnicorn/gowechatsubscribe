@@ -102,14 +102,13 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 			log.Warn(err)
 		}
 		fmt.Println(title, author)
-		return manager.packFiledsAsString(title, author,content, poetUid)
+		return manager.packFiledsAsString(title, author, content, poetUid)
 	}
 
 	err = rows.Err()
 	if err != nil {
 		log.Warn(err)
 	}
-
 
 	if len(keyword) >= 2 {
 
@@ -126,7 +125,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 		}
 		fmt.Println("fuzzy title:", title, author)
 		if len(title) > 0 {
-			return manager.packFiledsAsString(title, author,content, poetUid)
+			return manager.packFiledsAsString(title, author, content, poetUid)
 		}
 
 		// title not found, fuzzy match the poetry content
@@ -152,38 +151,12 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 	return "很抱歉，还没有这首诗哦~"
 }
 
-func (manager *DBManager)packFiledsAsString(title, author, content, poetUid string) string {
+func (manager *DBManager) packFiledsAsString(title, author, content, poetUid string) string {
 	if len(content) > 0 {
-		content = strings.Replace(content, "。", "。\n", -1)
-		content = strings.Replace(content, ";", ";\n", -1)
-		content = strings.Replace(content, "；", "；\n", -1)
-		content = strings.Replace(content, "？", "？\n", -1)
-		content = strings.Replace(content, "?", "?\n", -1)
-		content = strings.Replace(content, "!", "!\n", -1)
-		content = strings.Replace(content, "！", "！\n", -1)
-		var match []string
-		reg := regexp.MustCompile("（(.*?)）")
-		fmt.Println("reg1:",reg.FindAllString(content, -1))
-		reg = regexp.MustCompile("\\((.*?)\\)")
-		match = reg.FindAllString(content, -1)
-		if len(match) > 0 {
-			for _, piece := range match {
-				content = strings.Replace(content, piece, "", -1)
-			}
-		}
-		fmt.Println("reg2:",match)
-		reg = regexp.MustCompile("\\[(.*?)\\]")
-		match = reg.FindAllString(content, -1)
-		if len(match) > 0 {
-			for _, piece := range match {
-				content = strings.Replace(content, piece, "", -1)
-			}
-		}
-		fmt.Println("reg3:",match)
+		content = RenderContent(content, "\n")
 	}
 	return title + "\n" + manager.SelectDynasty(strings.Split(poetUid, "_")[0]) + " · " + author + "\n" + content
 }
-
 
 func (manager *DBManager) SelectDynasty(id string) string {
 	var name string
@@ -197,4 +170,34 @@ func (manager *DBManager) SelectDynasty(id string) string {
 	}
 	return name
 
+}
+
+func RenderContent(content string, returnChar string) string {
+	content = strings.Replace(content, "。", "。"+returnChar, -1)
+	content = strings.Replace(content, ";", ";"+returnChar, -1)
+	content = strings.Replace(content, "；", "；"+returnChar, -1)
+	content = strings.Replace(content, "？", "？"+returnChar, -1)
+	content = strings.Replace(content, "?", "?"+returnChar, -1)
+	content = strings.Replace(content, "!", "!"+returnChar, -1)
+	content = strings.Replace(content, "！", "！"+returnChar, -1)
+	var match []string
+	reg := regexp.MustCompile("（(.*?)）")
+	fmt.Println("reg1:", reg.FindAllString(content, -1))
+	reg = regexp.MustCompile("\\((.*?)\\)")
+	match = reg.FindAllString(content, -1)
+	if len(match) > 0 {
+		for _, piece := range match {
+			content = strings.Replace(content, piece, "", -1)
+		}
+	}
+	fmt.Println("reg2:", match)
+	reg = regexp.MustCompile("\\[(.*?)\\]")
+	match = reg.FindAllString(content, -1)
+	if len(match) > 0 {
+		for _, piece := range match {
+			content = strings.Replace(content, piece, "", -1)
+		}
+	}
+	fmt.Println("reg3:", match)
+	return content
 }

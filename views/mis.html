@@ -10,7 +10,7 @@
 </div>
 <div class="container">
     <h1>诗词搜索</h1>
-    <form class="navbar-form navbar-left" action="/mis/search" method="post">
+    <form class="navbar-form navbar-left" action="/mis" method="post">
         <div class="form-group">
             <input name="title" type="text" class="form-control" placeholder="标题">
         </div>
@@ -32,11 +32,11 @@
         <tbody>
         {{range .Poetries}}
         <tr>
-            <th>{{.Id}}</th>
-            <th>{{.Title}}</th>
-            <th>{{.Author}}</th>
-            <th>{{.Content}}</th>
-            <th>{{.Interpret}}</th>
+            <td width="20">{{.Id}}</td>
+            <td width="150"><a href="/mis/poetry/{{.Id}}">{{.Title}}</a></td>
+            <td width="70">{{.Author}}</td>
+            <td width="300">{{.Content}}</td>
+            <td>{{.Interpret}}</td>
         </tr>
         {{end}}
         </tbody>

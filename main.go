@@ -21,7 +21,8 @@ func main() {
 	beego.Any("/", hello)
 	beego.Router("/mis", &controllers.HomeController{})
 	beego.Router("/mis/login", &controllers.LoginController{})
-	beego.Router("/mis/search", &controllers.SearchController{})
+	beego.Router("/mis/poetry/?:id", &controllers.PoetryController{})
+	beego.Router("/mis/tag", &controllers.TagController{})
 	beego.Run()
 }
 
