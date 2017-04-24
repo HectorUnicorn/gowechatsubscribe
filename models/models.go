@@ -3,11 +3,11 @@ package models
 import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
+	"fmt"
 )
 
 const (
 	mysqlDriver = "mysql"
-	mysqlConn   = "root:guojialin@/poetry?charset=utf8"
 )
 
 type Poetry struct {
@@ -42,6 +42,8 @@ type TagState struct {
 }
 
 func RegisterDB() {
+	mysqlConn := fmt.Sprintf("%s:%s@%s?charset=utf8", beego.AppConfig.String("dbusername"),
+		beego.AppConfig.String("dbpassword"), beego.AppConfig.String("dbdatabase"))
 	orm.RegisterDataBase("default", mysqlDriver, mysqlConn, 30)
 	orm.RegisterModel(new(Poetry), new(Tag), new(PoetryTag))
 
