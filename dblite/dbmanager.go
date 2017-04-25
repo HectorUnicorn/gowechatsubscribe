@@ -13,16 +13,16 @@ import (
 const (
 	sqlStmt string = `CREATE TABLE IF NOT EXISTS dynasty (
   id INTEGER PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  url VARCHAR(1024) NOT NULL,
-  poet_count VARCHAR(1024) NOT NULL,
-  poet_page VARCHAR(1024) NOT NULL
+  name VARCHAR(128) NOT NULL,
+  url VARCHAR(128) NOT NULL,
+  poet_count VARCHAR(128) NOT NULL,
+  poet_page VARCHAR(128) NOT NULL
 ) charset = utf8mb4;
 CREATE TABLE IF NOT EXISTS poet (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(1024) NOT NULL,
-  uid VARCHAR(1024),
-  url VARCHAR(1024) NOT NULL,
+  name VARCHAR(128) NOT NULL,
+  uid VARCHAR(128),
+  url VARCHAR(128) NOT NULL,
   poet_count INT,
   dynasty_id INT,
   INDEX(id),
@@ -33,18 +33,18 @@ CREATE TABLE IF NOT EXISTS peotry_index (
   no INT,
   name VARCHAR(100) NOT NULL,
   summary VARCHAR(100),
-  type VARCHAR(255),
-  url VARCHAR(1024) NOT NULL,
-  poetuid VARCHAR(255)
+  type VARCHAR(128),
+  url VARCHAR(128) NOT NULL,
+  poetuid VARCHAR(128)
 ) charset = utf8mb4;
 CREATE TABLE IF NOT EXISTS poetry (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  url VARCHAR(1024) NOT NULL,
+  url VARCHAR(128) NOT NULL,
   content MEDIUMTEXT,
-  author VARCHAR(255),
+  author VARCHAR(128),
   interpret MEDIUMTEXT,
-  title VARCHAR(255),
-  poetuid VARCHAR(255),
+  title VARCHAR(128),
+  poetuid VARCHAR(128),
   INDEX(id)
 )  charset = utf8mb4;`
 )

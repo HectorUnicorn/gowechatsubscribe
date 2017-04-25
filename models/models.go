@@ -14,23 +14,23 @@ type Poetry struct {
 	Id        int64 `orm:"auto;index"`
 	Url       string
 	Content   string `orm:"type(text)"`
-	Author    string `orm:"size(255)"`
+	Author    string `orm:"size(128)"`
 	Interpret string `orm:"type(text)"`
-	Title     string `orm:"size(255)"`
-	Poetuid   string `orm:"size(255)"`
+	Title     string `orm:"size(128)"`
+	Poetuid   string `orm:"size(128)"`
 }
 
 type Tag struct {
 	Id          int `orm:"auto;index"`
-	Tag         string `orm:"unique;size(255)"`
-	TagCategory string `orm:"size(255)"`
+	Tag         string `orm:"unique;size(128)"`
+	TagCategory string `orm:"size(128)"`
 }
 
 type PoetryTag struct {
 	Id        int `orm:"auto;index"`
 	TagId     int
 	PoetryId  int64
-	BestLines string `orm:"size(255)"`
+	BestLines string `orm:"size(128)"`
 }
 
 type TagState struct {
@@ -44,6 +44,7 @@ type TagState struct {
 func RegisterDB() {
 	mysqlConn := fmt.Sprintf("%s:%s@%s", beego.AppConfig.String("dbusername"),
 		beego.AppConfig.String("dbpassword"), beego.AppConfig.String("dbdatabase"))
+	beego.Info("mysql conn:", mysqlConn)
 	orm.RegisterDataBase("default", mysqlDriver, mysqlConn, 30)
 	orm.RegisterModel(new(Poetry), new(Tag), new(PoetryTag))
 
