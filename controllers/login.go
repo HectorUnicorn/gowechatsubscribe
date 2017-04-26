@@ -18,8 +18,8 @@ func (c *LoginController) Get() {
 }
 
 func (c *LoginController) Post() {
-	uname := c.Input().Get("username")
-	pwd := c.Input().Get("password")
+	uname := c.Input().Get("uname")
+	pwd := c.Input().Get("pwd")
 	autoLogin := c.Input().Get("autoLogin") == "on"
 	if beego.AppConfig.String("uname") == uname &&
 		beego.AppConfig.String("pwd") == pwd {
@@ -27,27 +27,27 @@ func (c *LoginController) Post() {
 		if autoLogin {
 			maxAge = 1<<32 - 1
 		}
-		c.Ctx.SetCookie("username", uname, maxAge, "/")
+		c.Ctx.SetCookie("uname", uname, maxAge, "/")
 		c.Ctx.SetCookie("pwd", pwd, maxAge, "/")
 
 		c.Data["IsSuccess"] = true
 		c.Data["IsFailed"] = false
 		success = 0
 		c.Redirect("/mis", 301)
-		beego.Info("Login Successful! suc:%d", success)
+		beego.Info("Login Successful! suc: ", success)
 		return
 	} else {
 		c.Data["IsSuccess"] = false
 		c.Data["IsFailed"] = true
 		success = 2
-		beego.Info("Login Failed! suc:%d", success)
+		beego.Info("Login Failed! suc: ", success)
 	}
 	c.Redirect("/mis/login", 301)
 	return
 }
 
 func checkAccount(ctx *context.Context) bool {
-	ck, err := ctx.Request.Cookie("username")
+	ck, err := ctx.Request.Cookie("uname")
 	if err != nil {
 		return false
 	}
@@ -58,7 +58,7 @@ func checkAccount(ctx *context.Context) bool {
 		return false
 	}
 	pwd := ck.Value
-	beego.Info("Get from Cookie: uname: %s ; pwd: %s", uname, pwd)
+	beego.Info("Get from Cookie: uname - pwd: ", uname, pwd)
 	return beego.AppConfig.String("uname") == uname &&
 		beego.AppConfig.String("pwd") == pwd
 }
