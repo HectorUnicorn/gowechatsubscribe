@@ -2,7 +2,7 @@
 <a class="navbar-brand" href="/mis">国学点滴</a>
 <ul class="nav navbar-nav">
   <li {{if .IsHome}}class="active"{{end}}><a href="/mis">Mis首页</a></li>
-  <li {{if .Tag}}class="active"{{end}}><a href="/mis/tag">标签管理</a></li>
+  <li {{if .IsTag}}class="active"{{end}}><a href="/mis/tag">标签管理</a></li>
   <li {{if .IsTopic}}class="active"{{end}}><a href="/mis/topic">诗词</a></li>
 </ul>
 

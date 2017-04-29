@@ -26,13 +26,14 @@ func main() {
 	beego.Run()
 }
 
+var accessToken string
 
 func hello(ctx *context.Context) {
 	//配置微信参数
 	config := &wechat.Config{
-		AppID: beego.AppConfig.String("AppID"),
-		AppSecret: beego.AppConfig.String("AppSecret"),
-		Token: beego.AppConfig.String("Token"),
+		AppID:          beego.AppConfig.String("AppID"),
+		AppSecret:      beego.AppConfig.String("AppSecret"),
+		Token:          beego.AppConfig.String("Token"),
 		EncodingAESKey: beego.AppConfig.String("EncodingAESKey"),
 	}
 	wc := wechat.NewWechat(config)
@@ -60,8 +61,7 @@ func hello(ctx *context.Context) {
 			reply := message.NewText(result)
 			return &message.Reply{message.MsgTypeText, reply}
 		case message.MsgTypeEvent:
-
-			aReply := message.NewText("Hi 主人，" + "谢谢您的关注！我是您的较为智能的国学小助手。尝试回复诗句或者词牌名，如：\"静夜思\", 看看都有什么吧！" )
+			aReply := message.NewText("Hi 主人，" + "谢谢您的关注！我是您的国学小助手。尝试回复表情、诗句或者词牌名，如：\"[捂脸]\"或者\"静夜思\", 看看都有什么吧！")
 			return &message.Reply{message.MsgTypeText, aReply}
 		}
 		return &message.Reply{message.MsgTypeText, "没有找到哦，亲~\n"}
@@ -78,7 +78,12 @@ func hello(ctx *context.Context) {
 		log.Warn(err)
 	}
 
+	accessToken, err = server.GetAccessToken()
+	if err != nil {
+	    beego.Error(err)
+	}
+	beego.Debug("access_token:", accessToken)
+
 	//发送回复的消息
 	server.Send()
 }
-

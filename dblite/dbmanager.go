@@ -8,6 +8,7 @@ import (
 	"regexp"
 	"github.com/astaxie/beego"
 	"github.com/going/toolkit/log"
+	"gowechatsubscribe/models"
 )
 
 const (
@@ -80,6 +81,20 @@ func (manager *DBManager) CreateTableIfNeeded() bool {
 }
 
 func (manager *DBManager) SelectPoetry(keyword string) string {
+
+	tagId, err := models.InTagMatch(keyword)
+	beego.Info("has poetry tag:", tagId)
+	if err == nil {
+		poetry, err := models.RandomPoetry(tagId)
+		beego.Debug("random poetry is:", poetry)
+		if err != nil {
+		    beego.Error(err)
+		}
+		if poetry != nil {
+			return manager.packFiledsAsString(poetry.Title, poetry.Author, poetry.Content, poetry.Poetuid)
+		}
+	}
+
 
 	rows, err := manager.db.Query("SELECT poetry.title, poetry.author, poetry.content, poetry.poetuid " +
 		"FROM poetry " +
@@ -155,7 +170,11 @@ func (manager *DBManager) packFiledsAsString(title, author, content, poetUid str
 	if len(content) > 0 {
 		content = RenderContent(content, "\n")
 	}
-	return title + "\n" + manager.SelectDynasty(strings.Split(poetUid, "_")[0]) + " · " + author + "\n" + content
+	result := title + "\n" + manager.SelectDynasty(strings.Split(poetUid, "_")[0]) + " · " + author + "\n" + content
+	if len(result) >= 600 {
+		result = result[0:600]
+	}
+	return result
 }
 
 func (manager *DBManager) SelectDynasty(id string) string {

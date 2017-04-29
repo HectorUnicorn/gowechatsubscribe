@@ -4,6 +4,8 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
 	"fmt"
+	"time"
+	"math/rand"
 )
 
 const (
@@ -85,6 +87,27 @@ func GetAllTags() ([]*Tag, error) {
 		beego.Error(err)
 	}
 	return tags, err
+}
+func GetPoetriesByTagId(tagId int) ([]*Poetry, error) {
+	o := orm.NewOrm()
+	poetries := make([]*Poetry, 0)
+	poetryTags := make([]*PoetryTag, 0)
+	_, err := o.QueryTable("poetry_tag").Filter("tag_id", tagId).All(&poetryTags)
+
+	ids := make([]int64, 0)
+	for _, poetryTag := range poetryTags {
+		ids = append(ids, poetryTag.PoetryId)
+	}
+
+	beego.Info("poetry ids:", ids)
+
+	if len(ids) != 0 {
+		_, err = o.QueryTable("poetry").Filter("id__in", ids).All(&poetries)
+		if err != nil {
+			beego.Error(err)
+		}
+	}
+	return poetries, err
 }
 
 func AddTag(tag, tagcate string) (int64, error) {
@@ -168,4 +191,30 @@ func GetPoetryTagState(id int64) ([]*TagState, error) {
 		tagsStates = append(tagsStates, tagSt)
 	}
 	return tagsStates, err
+}
+
+func InTagMatch(keyword string) (int, error) {
+	o := orm.NewOrm()
+	tag := Tag{Tag: keyword}
+
+	err := o.Read(&tag)
+
+	if err != nil {
+		return -1, err
+	} else {
+		return tag.Id, err
+	}
+}
+
+func RandomPoetry(tagId int) (*Poetry, error) {
+	o := orm.NewOrm()
+	poetryTags := make([]*PoetryTag, 0)
+	qs := o.QueryTable("poetry_tag")
+	qs.Filter("tag_id", tagId).All(&poetryTags)
+	if len(poetryTags) > 0 {
+		rand.Seed(time.Now().UnixNano())
+		t := rand.Intn(len(poetryTags) - 1)
+		return GetPoetry(poetryTags[t].PoetryId)
+	}
+	return nil, nil
 }

@@ -10,10 +10,12 @@
 </div>
 <div class="container">
     <h1>{{.Poetry.Title}}<a href="#" class="btn btn-default">修改诗词</a></h1>
-    {{.Poetry.Author}}<br/>
-    {{.Poetry.Content}}
+    作者：{{.Poetry.Author}}<br/>
+    <h1></h1>
+    {{str2html .Poetry.Content}}
 
 
+    <h1></h1>
     <div class="well">
         {{.Poetry.Interpret}}
     </div>

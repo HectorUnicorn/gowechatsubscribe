@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"gowechatsubscribe/models"
 	"strconv"
+	"gowechatsubscribe/dblite"
 )
 
 type PoetryController struct {
@@ -34,7 +35,7 @@ func (c *PoetryController) Get() {
 		if err != nil {
 			beego.Error(err)
 		}
-		c.Redirect("/mis/poetry/"+poetryId, 301)
+		c.Redirect("/mis/poetry/" + poetryId, 301)
 		return
 	}
 
@@ -53,6 +54,11 @@ func (c *PoetryController) Get() {
 	if err != nil {
 		beego.Error(err)
 	}
+
+	if poetry != nil {
+		poetry.Content = dblite.RenderContent(poetry.Content, "<br/>")
+	}
+
 	c.Data["PoetryTags"] = poetryTags
 	c.Data["Poetry"] = poetry
 	c.TplName = "poetry_view.html"

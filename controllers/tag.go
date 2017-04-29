@@ -13,6 +13,7 @@ type TagController struct {
 func (c *TagController) Get() {
 	login := checkAccount(c.Ctx)
 	c.Data["IsLogin"] = login
+	c.Data["IsTag"] = true
 	if !login {
 		c.Redirect("/mis/login", 302)
 		return
@@ -51,6 +52,8 @@ func (c *TagController) Get() {
 
 
 func (c *TagController) Post() {
+	c.Data["IsTag"] = true
+
 	tagName := c.Input().Get("tag")
 	tagCate := c.Input().Get("tag_category")
 	beego.Info("tag", tagName, tagCate)

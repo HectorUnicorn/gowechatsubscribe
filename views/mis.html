@@ -10,37 +10,51 @@
 </div>
 <div class="container">
     <h1>诗词搜索</h1>
-    <form class="navbar-form navbar-left" action="/mis" method="post">
-        <div class="form-group">
-            <input name="title" type="text" class="form-control" placeholder="标题">
+    <div class="row">
+        <div class="col-md-10">
+            <form class="navbar-form navbar-left" action="/mis" method="post">
+                <div class="form-group">
+                    <input name="title" type="text" class="form-control" placeholder="标题">
+                </div>
+                <div class="form-group">
+                    <input name="content" type="text" class="form-control" placeholder="内容">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+                <span>标题：<mark>{{.SearchTitle}}</mark> 内容：<mark>{{.SearchContent}}</mark></span>
+                <span>标签：<mark>{{.TagName}}</mark></span>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>标题</th>
+                    <th>作者</th>
+                    <th>内容</th>
+                    <th>解释</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{range .Poetries}}
+                <tr>
+                    <td width="20">{{.Id}}</td>
+                    <td width="150"><a href="/mis/poetry/{{.Id}}">{{.Title}}</a></td>
+                    <td width="70">{{.Author}}</td>
+                    <td width="300">{{str2html .Content}}</td>
+                    <td>{{substr .Interpret 0 180}}</td>
+                </tr>
+                {{end}}
+                </tbody>
+            </table>
         </div>
-        <div class="form-group">
-            <input name="content" type="text" class="form-control" placeholder="内容">
+        <div class="col-md-2">
+            <h4>标签</h4>
+            <ul>
+                {{range .Tags}}
+                <li><a href="/mis?op=showtag&tag={{.Id}}&tagname={{.Tag}}">{{.Tag}}</a></li>
+                {{end}}
+            </ul>
         </div>
-        <button type="submit" class="btn btn-default">搜索</button>
-    </form>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>标题</th>
-            <th>作者</th>
-            <th>内容</th>
-            <th>解释</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{range .Poetries}}
-        <tr>
-            <td width="20">{{.Id}}</td>
-            <td width="150"><a href="/mis/poetry/{{.Id}}">{{.Title}}</a></td>
-            <td width="70">{{.Author}}</td>
-            <td width="300">{{.Content}}</td>
-            <td>{{.Interpret}}</td>
-        </tr>
-        {{end}}
-        </tbody>
-    </table>
+    </div>
 </div>
 <script type="text/javascript" src="/static/js/jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
