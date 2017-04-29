@@ -9,7 +9,6 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/going/toolkit/log"
 	"gowechatsubscribe/models"
-	"spiderp/poetry"
 )
 
 const (
