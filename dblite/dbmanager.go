@@ -80,7 +80,37 @@ func (manager *DBManager) CreateTableIfNeeded() bool {
 	return true
 }
 
+
+
 func (manager *DBManager) SelectPoetry(keyword string) string {
+
+	emoji := map[string]string{
+		"/::)":  "[微笑]",
+		"/::~":  "[撇嘴]",
+		"/::B":  "[色]",
+		"/::|":  "[发呆]",
+		"/:8-)": "[得意]",
+		"/::<":  "[流泪]",
+		"/::$":  "[害羞]",
+		"/::X":  "[闭嘴]",
+		"/::Z":  "[睡]",
+		"/::’(": "[大哭]",
+		"/::-|": "[尴尬]",
+		"/::@":  "[发怒]",
+		"/::P":  "[调皮]",
+		"/::D":  "[呲牙]",
+		"/::O":  "[惊讶]",
+		"/::(":  "[难过]",
+		"/:–b":  "[囧]",
+		"/::Q":  "[抓狂]",
+		"/::T":  "[吐]",
+		"/:,@P": "[偷笑]",
+	}
+
+	newkey, exists := emoji[keyword]
+	if exists {
+		keyword = newkey
+	}
 
 	tagId, err := models.InTagMatch(keyword)
 	beego.Info("has poetry tag:", tagId)
