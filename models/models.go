@@ -195,17 +195,13 @@ func GetPoetryTagState(id int64) ([]*TagState, error) {
 
 func InTagMatch(keyword string) (int, error) {
 	o := orm.NewOrm()
-	tag := Tag{Tag: keyword}
+	tags := make([]*Tag, 0)
+	_, err := o.QueryTable("tag").Filter("tag", keyword).All(&tags)
 
-	err := o.Read(&tag)
-
-	beego.Info("tag:", tag)
-
-	if err != nil {
-		return -1, err
-	} else {
-		return tag.Id, err
+	if len(tags) > 0 {
+		return tags[0].Id, nil
 	}
+	return -1, err
 }
 
 func RandomPoetry(tagId int) (string, error) {
