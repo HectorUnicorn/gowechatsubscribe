@@ -9,6 +9,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/going/toolkit/log"
 	"gowechatsubscribe/models"
+	"spiderp/poetry"
 )
 
 const (
@@ -115,16 +116,15 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 	tagId, err := models.InTagMatch(keyword)
 	beego.Info("has poetry tag:", tagId)
 	if err == nil {
-		poetry, err := models.RandomPoetry(tagId)
+		content, err := models.RandomPoetry(tagId)
 		beego.Debug("random poetry is:", poetry)
 		if err != nil {
 		    beego.Error(err)
 		}
 		if poetry != nil {
-			return manager.packFiledsAsString(poetry.Title, poetry.Author, poetry.Content, poetry.Poetuid)
+			return content
 		}
 	}
-
 
 	rows, err := manager.db.Query("SELECT poetry.title, poetry.author, poetry.content, poetry.poetuid " +
 		"FROM poetry " +

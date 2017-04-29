@@ -199,6 +199,8 @@ func InTagMatch(keyword string) (int, error) {
 
 	err := o.Read(&tag)
 
+	beego.Info("tag:", tag)
+
 	if err != nil {
 		return -1, err
 	} else {
@@ -206,7 +208,7 @@ func InTagMatch(keyword string) (int, error) {
 	}
 }
 
-func RandomPoetry(tagId int) (*Poetry, error) {
+func RandomPoetry(tagId int) (string, error) {
 	o := orm.NewOrm()
 	poetryTags := make([]*PoetryTag, 0)
 	qs := o.QueryTable("poetry_tag")
@@ -214,7 +216,7 @@ func RandomPoetry(tagId int) (*Poetry, error) {
 	if len(poetryTags) > 0 {
 		rand.Seed(time.Now().UnixNano())
 		t := rand.Intn(len(poetryTags) - 1)
-		return GetPoetry(poetryTags[t].PoetryId)
+		return poetryTags[t].BestLines, nil
 	}
 	return nil, nil
 }
