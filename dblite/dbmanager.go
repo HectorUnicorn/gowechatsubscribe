@@ -116,13 +116,11 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 	beego.Info("has poetry tag:", tagId)
 	if err == nil {
 		content, err := models.RandomPoetry(tagId)
-		beego.Debug("random poetry is:", poetry)
+		beego.Debug("random poetry is:", content)
 		if err != nil {
 		    beego.Error(err)
 		}
-		if poetry != nil {
-			return content
-		}
+		return content
 	}
 
 	rows, err := manager.db.Query("SELECT poetry.title, poetry.author, poetry.content, poetry.poetuid " +

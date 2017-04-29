@@ -218,5 +218,5 @@ func RandomPoetry(tagId int) (string, error) {
 		t := rand.Intn(len(poetryTags) - 1)
 		return poetryTags[t].BestLines, nil
 	}
-	return nil, nil
+	return "", nil
 }
