@@ -78,11 +78,11 @@ func hello(ctx *context.Context) {
 		log.Warn(err)
 	}
 
-	accessToken, err = server.GetAccessToken()
-	if err != nil {
-	    beego.Error(err)
-	}
-	beego.Debug("access_token:", accessToken)
+	//accessToken, err = server.GetAccessToken()
+	//if err != nil {
+	//    beego.Error(err)
+	//}
+	//beego.Debug("access_token:", accessToken)
 
 	//发送回复的消息
 	server.Send()
