@@ -211,8 +211,8 @@ func RandomPoetry(tagId int) (string, error) {
 	qs.Filter("tag_id", tagId).All(&poetryTags)
 	if len(poetryTags) > 0 {
 		rand.Seed(time.Now().UnixNano())
-		t := rand.Intn(len(poetryTags) - 1)
-		return poetryTags[t].BestLines, nil
+		t := rand.Intn(len(poetryTags))
+		return poetryTags[t-1].BestLines, nil
 	}
 	return "", nil
 }
