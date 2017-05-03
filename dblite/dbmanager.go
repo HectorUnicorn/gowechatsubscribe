@@ -114,7 +114,7 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 
 	tagId, err := models.InTagMatch(keyword)
 	beego.Info("has poetry tag:", tagId)
-	if err == nil {
+	if tagId != -1 {
 		content, err := models.RandomPoetry(tagId)
 		beego.Debug("random poetry is:", content)
 		if err != nil {
