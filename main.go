@@ -61,7 +61,7 @@ func hello(ctx *context.Context) {
 			reply := message.NewText(result)
 			return &message.Reply{message.MsgTypeText, reply}
 		case message.MsgTypeEvent:
-			aReply := message.NewText("Hi 主人，" + "谢谢您的关注！我是您的国学小助手。尝试回复表情、诗句或者词牌名，如：\"[捂脸]\"或者\"静夜思\", 看看都有什么吧！")
+			aReply := message.NewText("Hi 主人，" + "谢谢您的关注！我是您的国学小助手。尝试回复表情、诗句或者词牌名，如：\"[难过]\"或者\"静夜思\", 看看都有什么吧！")
 			return &message.Reply{message.MsgTypeText, aReply}
 		}
 		return &message.Reply{message.MsgTypeText, "没有找到哦，亲~\n"}

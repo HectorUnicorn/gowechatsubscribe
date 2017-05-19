@@ -1,0 +1,106 @@
+{
+	"ImportPath": "gowechatsubscribe",
+	"GoVersion": "go1.8",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "github.com/astaxie/beego",
+			"Comment": "v1.8.0",
+			"Rev": "323a1c4214101331a4b71922c23d19b7409ac71f"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/config",
+			"Comment": "v1.8.0",
+			"Rev": "323a1c4214101331a4b71922c23d19b7409ac71f"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/context",
+			"Comment": "v1.8.0",
+			"Rev": "323a1c4214101331a4b71922c23d19b7409ac71f"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/grace",
+			"Comment": "v1.8.0",
+			"Rev": "323a1c4214101331a4b71922c23d19b7409ac71f"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/logs",
+			"Comment": "v1.8.0",
+			"Rev": "323a1c4214101331a4b71922c23d19b7409ac71f"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/orm",
+			"Comment": "v1.8.0",
+			"Rev": "323a1c4214101331a4b71922c23d19b7409ac71f"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/session",
+			"Comment": "v1.8.0",
+			"Rev": "323a1c4214101331a4b71922c23d19b7409ac71f"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/toolbox",
+			"Comment": "v1.8.0",
+			"Rev": "323a1c4214101331a4b71922c23d19b7409ac71f"
+		},
+		{
+			"ImportPath": "github.com/astaxie/beego/utils",
+			"Comment": "v1.8.0",
+			"Rev": "323a1c4214101331a4b71922c23d19b7409ac71f"
+		},
+		{
+			"ImportPath": "github.com/bradfitz/gomemcache/memcache",
+			"Comment": "release.r60-46-g1952afa",
+			"Rev": "1952afaa557dc08e8e0d89eafab110fb501c1a2b"
+		},
+		{
+			"ImportPath": "github.com/go-sql-driver/mysql",
+			"Comment": "v1.3-4-g53e2a9b",
+			"Rev": "53e2a9bf25b20e8f597896666f0663d84e22c68e"
+		},
+		{
+			"ImportPath": "github.com/going/toolkit/log",
+			"Rev": "5bff591dc40da25dcc875d3fa1a3373d74d45411"
+		},
+		{
+			"ImportPath": "github.com/silenceper/wechat",
+			"Rev": "980aba5795430f08ce0a853f9e2677a675212404"
+		},
+		{
+			"ImportPath": "github.com/silenceper/wechat/cache",
+			"Rev": "980aba5795430f08ce0a853f9e2677a675212404"
+		},
+		{
+			"ImportPath": "github.com/silenceper/wechat/context",
+			"Rev": "980aba5795430f08ce0a853f9e2677a675212404"
+		},
+		{
+			"ImportPath": "github.com/silenceper/wechat/js",
+			"Rev": "980aba5795430f08ce0a853f9e2677a675212404"
+		},
+		{
+			"ImportPath": "github.com/silenceper/wechat/material",
+			"Rev": "980aba5795430f08ce0a853f9e2677a675212404"
+		},
+		{
+			"ImportPath": "github.com/silenceper/wechat/menu",
+			"Rev": "980aba5795430f08ce0a853f9e2677a675212404"
+		},
+		{
+			"ImportPath": "github.com/silenceper/wechat/message",
+			"Rev": "980aba5795430f08ce0a853f9e2677a675212404"
+		},
+		{
+			"ImportPath": "github.com/silenceper/wechat/oauth",
+			"Rev": "980aba5795430f08ce0a853f9e2677a675212404"
+		},
+		{
+			"ImportPath": "github.com/silenceper/wechat/server",
+			"Rev": "980aba5795430f08ce0a853f9e2677a675212404"
+		},
+		{
+			"ImportPath": "github.com/silenceper/wechat/util",
+			"Rev": "980aba5795430f08ce0a853f9e2677a675212404"
+		}
+	]
+}
