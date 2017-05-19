@@ -120,7 +120,9 @@ func (manager *DBManager) SelectPoetry(keyword string) string {
 		if err != nil {
 		    beego.Error(err)
 		}
-		return content
+		if len(content) > 0 {
+			return content
+		}
 	}
 
 	rows, err := manager.db.Query("SELECT poetry.title, poetry.author, poetry.content, poetry.poetuid " +

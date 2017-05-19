@@ -212,7 +212,8 @@ func RandomPoetry(tagId int) (string, error) {
 	if len(poetryTags) > 0 {
 		rand.Seed(time.Now().UnixNano())
 		t := rand.Intn(len(poetryTags))
-		return poetryTags[t-1].BestLines, nil
+		beego.Info("index:", t)
+		return poetryTags[t].BestLines, nil
 	}
 	return "", nil
 }
